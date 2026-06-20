@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KENDI • Roblox Poses | Эксклюзивные позы для твоего аватара</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #ff00aa;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px #ff00aa,
+                        0 0 20px #ff00aa,
+                        0 0 40px #ff00aa;
+        }
+
+        .neon-pink {
+            color: #ff00aa;
+            text-shadow: 0 0 10px #ff00aa;
+        }
+
+        .section-header {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .pose-card {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .pose-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+
+        .neon-border {
+            position: relative;
+        }
+        
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            padding: 1px;
+            background: linear-gradient(45deg, #ff00aa, #00f0ff, #ff00aa);
+            border-radius: 16px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .neon-border:hover::before {
+            opacity: 1;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .roblox-grid {
+            background-image: 
+                linear-gradient(rgba(255, 0, 170, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 170, 0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .pose-img {
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .pose-card:hover .pose-img {
+            transform: scale(1.1);
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .nav-link {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: #ff00aa;
+            transform: translateY(-1px);
+        }
+
+        .price-tag {
+            background: linear-gradient(90deg, #ff00aa, #c026d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .glow {
+            box-shadow: 0 0 15px rgba(255, 0, 170, 0.3),
+                       0 0 30px rgba(255, 0, 170, 0.1);
+        }
+
+        .roblox-btn {
+            background: linear-gradient(135deg, #ff00aa, #c026d3);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .roblox-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgb(255 0 170 / 0.3), 
+                       0 8px 10px -6px rgb(255 0 170 / 0.3);
+        }
+        
+        .roblox-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -100%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            transition: 0.6s;
+        }
+        
+        .roblox-btn:hover::after {
+            left: 250%;
+        }
+
+        .modal {
+            animation: modalPop 0.3s ease forwards;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .pose-filter {
+            transition: all 0.2s ease;
+        }
+
+        .pose-filter.active {
+            background-color: #ff00aa;
+            color: white;
+            border-color: #ff00aa;
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0f] text-white overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/95 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-5 flex items-center justify-between">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 bg-gradient-to-br from-[#ff00aa] to-[#c026d3] rounded-2xl flex items-center justify-center">
+                        <span class="text-white font-black text-3xl tracking-tighter">K</span>
+                    </div>
+                    <div>
+                        <span class="font-display text-3xl font-bold tracking-tighter">KENDI</span>
+                        <span class="text-[#ff00aa] text-xs font-mono tracking-[3px] block -mt-1">POSES</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-10 text-sm font-medium">
+                    <a href="#portfolio" class="nav-link text-white/80 hover:text-white">Портфолио</a>
+                    <a href="#pricing" class="nav-link text-white/80 hover:text-white">Цены</a>
+                    <a href="#about" class="nav-link text-white/80 hover:text-white">Обо мне</a>
+                </div>
+                
+                <div class="flex items-center gap-x-4">
+                    <a href="https://max.ru/u/f9LHodD0cOKmhHd8bTjf4eJVJnIK1fZBTDwurOyvPi2drvOkdO8V7b7GeK4" 
+                       target="_blank"
+                       class="px-6 py-2.5 text-sm font-semibold bg-white/10 hover:bg-white/15 border border-white/20 rounded-3xl flex items-center gap-x-2 transition-all active:scale-[0.985]">
+                        <i class="fa-brands fa-telegram text-[#ff00aa]"></i>
+                        <span class="hidden sm:inline">MAX</span>
+                    </a>
+                    
+                    <button onclick="document.getElementById('contact-modal').showModal()"
+                            class="roblox-btn px-8 py-2.5 text-sm font-semibold rounded-3xl flex items-center gap-x-2">
+                        <span>Связаться</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="pt-20 pb-16 max-w-screen-2xl mx-auto px-8">
+        <div class="grid md:grid-cols-12 gap-8 items-center min-h-[92vh]">
+            <div class="md:col-span-7 space-y-8">
+                <div class="inline-flex items-center gap-x-2 px-5 py-1.5 rounded-3xl bg-white/5 border border-white/10 text-sm">
+                    <div class="w-2 h-2 bg-[#ff00aa] rounded-full animate-pulse"></div>
+                    <span class="font-medium text-white/80">Более 4200 поз продано в 2025-2026</span>
+                </div>
+                
+                <div class="space-y-4">
+                    <h1 class="text-7xl md:text-8xl font-display font-black tracking-tighter leading-[0.95]">
+                        ПОЗЫ,<br>
+                        КОТОРЫЕ<br>
+                        <span class="neon-pink">ЗАВОРАЖИВАЮТ</span>
+                    </h1>
+                    <p class="max-w-lg text-2xl text-white/70 font-light tracking-tight">
+                        Я создаю самые крутые и детализированные позы для Roblox. 
+                        Твой аватар будет выглядеть так, как будто он из AAA-игры.
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap items-center gap-4 pt-4">
+                    <button onclick="document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' })" 
+                            class="roblox-btn px-10 py-4 text-lg font-semibold rounded-3xl flex items-center gap-x-3 group">
+                        <span>Смотреть портфолио</span>
+                        <i class="fa-solid fa-chevron-down group-active:rotate-180 transition-transform"></i>
+                    </button>
+                    
+                    <a href="https://max.ru/u/f9LHodD0cOKmhHd8bTjf4eJVJnIK1fZBTDwurOyvPi2drvOkdO8V7b7GeK4" 
+                       target="_blank"
+                       class="px-8 py-4 text-lg font-semibold border border-white/30 hover:bg-white/5 rounded-3xl flex items-center gap-x-3 transition-all">
+                        <i class="fa-brands fa-telegram"></i>
+                        <span>Написать в MAX</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center gap-x-8 pt-6">
+                    <div>
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 bg-zinc-800 border border-white/20 rounded-full overflow-hidden"><img src="https://i.pravatar.cc/32?img=28" class="w-full h-full object-cover"></div>
+                            <div class="w-8 h-8 bg-zinc-800 border border-white/20 rounded-full overflow-hidden"><img src="https://i.pravatar.cc/32?img=47" class="w-full h-full object-cover"></div>
+                            <div class="w-8 h-8 bg-zinc-800 border border-white/20 rounded-full overflow-hidden"><img src="https://i.pravatar.cc/32?img=12" class="w-full h-full object-cover"></div>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <div class="font-semibold">Присоединились 1 284 игрока</div>
+                        <div class="text-white/50 text-xs">за последние 30 дней</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Visual -->
+            <div class="md:col-span-5 relative">
+                <div class="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                    <img src="https://picsum.photos/id/1015/1200/900" 
+                         class="w-full h-full object-cover brightness-[0.85]" alt="Kendi Roblox Pose">
+                    <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-black/30 to-transparent"></div>
+                    
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-xs tracking-widest text-white/60">FEATURED</div>
+                                <div class="text-2xl font-bold">Neon Reaper</div>
+                            </div>
+                            <div class="px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-2xl text-sm font-medium border border-white/20">
+                                2 400 ₽
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute top-6 right-6 px-4 py-1 bg-black/60 backdrop-blur-md rounded-2xl flex items-center gap-x-1.5 text-sm">
+                        <i class="fa-solid fa-check text-[#ff00aa]"></i>
+                        <span class="font-medium">Топ-продажа</span>
+                    </div>
+                </div>
+                
+                <div class="absolute -bottom-4 -left-4 bg-[#0a0a0f] border border-white/10 rounded-2xl p-4 glass hidden xl:block">
+                    <div class="flex items-center gap-x-3">
+                        <div class="text-emerald-400">
+                            <i class="fa-solid fa-chart-line text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-white/60">Средний рейтинг</div>
+                            <div class="font-bold text-lg">4.98 <span class="text-emerald-400">★</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Bar -->
+    <div class="border-y border-white/10 py-5">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-white/50 text-sm font-medium">
+                <div class="flex items-center gap-x-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>100% оригинальные позы</span>
+                </div>
+                <div class="flex items-center gap-x-2">
+                    <i class="fa-solid fa-sync"></i>
+                    <span>Бесплатные правки</span>
+                </div>
+                <div class="flex items-center gap-x-2">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Срок 1-3 дня</span>
+                </div>
+                <div class="flex items-center gap-x-2">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>Работаю с игроками по всему миру</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="max-w-screen-2xl mx-auto px-8 py-24">
+        <div class="grid md:grid-cols-12 gap-16 items-center">
+            <div class="md:col-span-5">
+                <div class="sticky top-24">
+                    <div class="inline-block px-4 py-1 rounded-full bg-white/5 text-xs tracking-[2px] mb-6">КТО Я</div>
+                    <h2 class="section-header tracking-tighter">Привет,<br>я <span class="neon-pink">Kendi</span></h2>
+                    
+                    <div class="mt-8 text-lg text-white/70 max-w-md">
+                        Уже 3 года я создаю позы, которые выделяют аватары среди миллионов. 
+                        Мои работы используют стримеры, ютуберы и топ-игроки.
+                    </div>
+                    
+                    <div class="mt-10 grid grid-cols-3 gap-4">
+                        <div>
+                            <div class="text-4xl font-black">4200+</div>
+                            <div class="text-white/50 text-sm mt-1">Поз создано</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-black">184</div>
+                            <div class="text-white/50 text-sm mt-1">Постоянных клиента</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-black">98</div>
+                            <div class="text-white/50 text-sm mt-1">Стран</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-7">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="glass p-7 rounded-3xl border border-white/10">
+                        <div class="text-[#ff00aa] text-3xl mb-4">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="font-semibold text-xl mb-2">Техническое совершенство</div>
+                        <div class="text-white/60 text-sm">Каждая поза проходит 15+ итераций. Идеальная синхронизация с анимациями Roblox.</div>
+                    </div>
+                    
+                    <div class="glass p-7 rounded-3xl border border-white/10">
+                        <div class="text-[#ff00aa] text-3xl mb-4">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <div class="font-semibold text-xl mb-2">Художественный подход</div>
+                        <div class="text-white/60 text-sm">Я не просто двигаю кости. Я рассказываю историю через позу.</div>
+                    </div>
+                    
+                    <div class="glass p-7 rounded-3xl border border-white/10">
+                        <div class="text-[#ff00aa] text-3xl mb-4">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="font-semibold text-xl mb-2">Эксклюзивность</div>
+                        <div class="text-white/60 text-sm">Ни одна поза не повторяется. Каждый клиент получает уникальный результат.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div id="portfolio" class="bg-[#111114] py-20 border-y border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+                <div>
+                    <div class="text-[#ff00aa] text-sm tracking-[3px] font-medium">ИЗБРАННЫЕ РАБОТЫ</div>
+                    <h2 class="section-header tracking-tighter mt-1">Портфолио</h2>
+                </div>
+                
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0">
+                    <button onclick="filterPoses('all')" class="pose-filter active px-5 py-2 text-sm border border-white/20 hover:border-white/40 rounded-3xl px-6 transition-all" data-filter="all">Все</button>
+                    <button onclick="filterPoses('premium')" class="pose-filter px-5 py-2 text-sm border border-white/20 hover:border-white/40 rounded-3xl px-6 transition-all" data-filter="premium">Премиум</button>
+                    <button onclick="filterPoses('epic')" class="pose-filter px-5 py-2 text-sm border border-white/20 hover:border-white/40 rounded-3xl px-6 transition-all" data-filter="epic">Эпик</button>
+                    <button onclick="filterPoses('legendary')" class="pose-filter px-5 py-2 text-sm border border-white/20 hover:border-white/40 rounded-3xl px-6 transition-all" data-filter="legendary">Легендарные</button>
+                </div>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="poses-grid">
+                
+                <!-- Pose 1 -->
+                <div class="pose-card group bg-zinc-900 rounded-3xl overflow-hidden border border-white/10" data-category="epic">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://picsum.photos/id/1005/800/600" class="pose-img w-full h-full object-cover" alt="Neon Reaper Pose">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <div class="px-3 py-1 text-xs font-bold bg-black/70 backdrop-blur rounded-2xl flex items-center gap-x-1">
+                                <span class="text-[#ff00aa]">EPIC</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-bold text-xl">Neon Reaper</div>
+                                <div class="text-white/50 text-sm">Динамичная поза с неоновым мечом</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-black text-xl text-[#ff00aa]">1 900 ₽</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-5">
+                            <div class="flex items-center text-xs text-white/60">
+                                <i class="fa-solid fa-check mr-1.5 text-emerald-400"></i>
+                                <span>320 продаж</span>
+                            </div>
+                            <button onclick="showPoseModal(0)" class="text-xs px-4 py-1.5 border border-white/20 hover:bg-white/5 rounded-2xl transition-all text-white/80">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pose 2 -->
+                <div class="pose-card group bg-zinc-900 rounded-3xl overflow-hidden border border-white/10" data-category="legendary">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://picsum.photos/id/1018/800/600" class="pose-img w-full h-full object-cover" alt="Void Walker Pose">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <div class="px-3 py-1 text-xs font-bold bg-gradient-to-r from-purple-500 to-[#ff00aa] text-white rounded-2xl flex items-center gap-x-1">
+                                <span>LEGENDARY</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-bold text-xl">Void Walker</div>
+                                <div class="text-white/50 text-sm">Мистическая поза в пустоте</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-black text-xl text-[#ff00aa]">3 400 ₽</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-5">
+                            <div class="flex items-center text-xs text-white/60">
+                                <i class="fa-solid fa-check mr-1.5 text-emerald-400"></i>
+                                <span>97 продаж</span>
+                            </div>
+                            <button onclick="showPoseModal(1)" class="text-xs px-4 py-1.5 border border-white/20 hover:bg-white/5 rounded-2xl transition-all text-white/80">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pose 3 -->
+                <div class="pose-card group bg-zinc-900 rounded-3xl overflow-hidden border border-white/10" data-category="premium">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://picsum.photos/id/1033/800/600" class="pose-img w-full h-full object-cover" alt="Cyber Samurai Pose">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <div class="px-3 py-1 text-xs font-bold bg-black/70 backdrop-blur rounded-2xl flex items-center gap-x-1">
+                                <span class="text-[#ff00aa]">PREMIUM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-bold text-xl">Cyber Samurai</div>
+                                <div class="text-white/50 text-sm">Японский стиль + неон</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-black text-xl text-[#ff00aa]">1 200 ₽</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-5">
+                            <div class="flex items-center text-xs text-white/60">
+                                <i class="fa-solid fa-check mr-1.5 text-emerald-400"></i>
+                                <span>684 продаж</span>
+                            </div>
+                            <button onclick="showPoseModal(2)" class="text-xs px-4 py-1.5 border border-white/20 hover:bg-white/5 rounded-2xl transition-all text-white/80">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pose 4 -->
+                <div class="pose-card group bg-zinc-900 rounded-3xl overflow-hidden border border-white/10" data-category="epic">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://picsum.photos/id/106/800/600" class="pose-img w-full h-full object-cover" alt="Shadow Assassin Pose">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <div class="px-3 py-1 text-xs font-bold bg-black/70 backdrop-blur rounded-2xl flex items-center gap-x-1">
+                                <span class="text-[#ff00aa]">EPIC</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-bold text-xl">Shadow Assassin</div>
+                                <div class="text-white/50 text-sm">Скрытная поза убийцы</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-black text-xl text-[#ff00aa]">1 650 ₽</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-5">
+                            <div class="flex items-center text-xs text-white/60">
+                                <i class="fa-solid fa-check mr-1.5 text-emerald-400"></i>
+                                <span>241 продажа</span>
+                            </div>
+                            <button onclick="showPoseModal(3)" class="text-xs px-4 py-1.5 border border-white/20 hover:bg-white/5 rounded-2xl transition-all text-white/80">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pose 5 -->
+                <div class="pose-card group bg-zinc-900 rounded-3xl overflow-hidden border border-white/10" data-category="legendary">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://picsum.photos/id/201/800/600" class="pose-img w-full h-full object-cover" alt="Celestial God Pose">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <div class="px-3 py-1 text-xs font-bold bg-gradient-to-r from-purple-500 to-[#ff00aa] text-white rounded-2xl flex items-center gap-x-1">
+                                <span>LEGENDARY</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-bold text-xl">Celestial God</div>
+                                <div class="text-white/50 text-sm">Божественная поза с крыльями</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-black text-xl text-[#ff00aa]">4 200 ₽</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-5">
+                            <div class="flex items-center text-xs text-white/60">
+                                <i class="fa-solid fa-check mr-1.5 text-emerald-400"></i>
+                                <span>54 продажи</span>
+                            </div>
+                            <button onclick="showPoseModal(4)" class="text-xs px-4 py-1.5 border border-white/20 hover:bg-white/5 rounded-2xl transition-all text-white/80">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pose 6 -->
+                <div class="pose-card group bg-zinc-900 rounded-3xl overflow-hidden border border-white/10" data-category="premium">
+                    <div class="relative aspect-video overflow-hidden">
+                        <img src="https://picsum.photos/id/160/800/600" class="pose-img w-full h-full object-cover" alt="Street King Pose">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <div class="px-3 py-1 text-xs font-bold bg-black/70 backdrop-blur rounded-2xl flex items-center gap-x-1">
+                                <span class="text-[#ff00aa]">PREMIUM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-bold text-xl">Street King</div>
+                                <div class="text-white/50 text-sm">Уличный стиль и харизма</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-black text-xl text-[#ff00aa]">950 ₽</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-5">
+                            <div class="flex items-center text-xs text-white/60">
+                                <i class="fa-solid fa-check mr-1.5 text-emerald-400"></i>
+                                <span>1 129 продаж</span>
+                            </div>
+                            <button onclick="showPoseModal(5)" class="text-xs px-4 py-1.5 border border-white/20 hover:bg-white/5 rounded-2xl transition-all text-white/80">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button onclick="document.getElementById('contact-modal').showModal()" 
+                        class="inline-flex items-center gap-x-3 text-sm font-medium px-8 py-3 border border-white/30 hover:bg-white/5 transition-all rounded-3xl">
+                    <span>Хочешь увидеть больше работ?</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="pricing" class="max-w-screen-2xl mx-auto px-8 py-24">
+        <div class="text-center mb-14">
+            <div class="inline-block px-4 py-1 rounded-full bg-white/5 text-xs tracking-[2px]">ПРОЗРАЧНЫЕ ЦЕНЫ</div>
+            <h2 class="section-header tracking-tighter mt-3">Выбери свой уровень</h2>
+            <p class="text-white/60 mt-3 max-w-md mx-auto">Каждая поза — это инвестиция в твой стиль. Цены фиксированные.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            
+            <!-- Basic -->
+            <div class="glass rounded-3xl p-8 border border-white/10 hover:border-white/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-bold text-2xl">Старт</div>
+                        <div class="text-white/60">Для новичков</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-5xl font-black">490</div>
+                        <div class="text-sm text-white/50 -mt-1">₽</div>
+                    </div>
+                </div>
+                
+                <div class="my-8 h-px bg-white/10"></div>
+                
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>1 базовая поза</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>2 правки</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Срок: 2-3 дня</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Коммерческое использование</span></li>
+                </ul>
+                
+                <button onclick="selectPlan('Старт', 490)" 
+                        class="mt-8 w-full py-3.5 border border-white/30 hover:bg-white/5 rounded-3xl text-sm font-semibold transition-all">
+                    Выбрать план
+                </button>
+            </div>
+            
+            <!-- Premium -->
+            <div class="glass rounded-3xl p-8 border border-[#ff00aa]/50 relative hover:border-[#ff00aa] transition-all scale-[1.02] group">
+                <div class="absolute -top-3 right-8 px-5 py-1 bg-[#ff00aa] text-xs font-bold tracking-wider rounded-3xl">ПОПУЛЯРНЫЙ</div>
+                
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-bold text-2xl">Премиум</div>
+                        <div class="text-white/60">Лучший выбор</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-5xl font-black text-[#ff00aa]">1 290</div>
+                        <div class="text-sm text-white/50 -mt-1">₽</div>
+                    </div>
+                </div>
+                
+                <div class="my-8 h-px bg-white/10"></div>
+                
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>1 премиум-поза</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Неограниченные правки</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Срок: 1-2 дня</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Видео-превью 4K</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Приоритетная поддержка</span></li>
+                </ul>
+                
+                <button onclick="selectPlan('Премиум', 1290)" 
+                        class="mt-8 w-full py-3.5 roblox-btn text-sm font-semibold rounded-3xl">
+                    Выбрать премиум
+                </button>
+            </div>
+            
+            <!-- Legendary -->
+            <div class="glass rounded-3xl p-8 border border-white/10 hover:border-white/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-bold text-2xl">Легенда</div>
+                        <div class="text-white/60">Для топ-игроков</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-5xl font-black">3 490</div>
+                        <div class="text-sm text-white/50 -mt-1">₽</div>
+                    </div>
+                </div>
+                
+                <div class="my-8 h-px bg-white/10"></div>
+                
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Полностью кастомная поза</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Неограниченные правки</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Срок: 24 часа</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>3D-превью + анимация</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Пакет из 3 поз со скидкой</span></li>
+                    <li class="flex items-center gap-x-3"><i class="fa-solid fa-check text-[#ff00aa]"></i> <span>Персональный Discord</span></li>
+                </ul>
+                
+                <button onclick="selectPlan('Легенда', 3490)" 
+                        class="mt-8 w-full py-3.5 border border-white/30 hover:bg-white/5 rounded-3xl text-sm font-semibold transition-all">
+                    Выбрать легенду
+                </button>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12 text-sm text-white/50">
+            Все цены указаны за одну позу. При заказе от 3 поз — скидка 15%.
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="max-w-screen-2xl mx-auto px-8 pb-24">
+        <div class="text-center mb-12">
+            <h2 class="section-header tracking-tighter">Что говорят клиенты</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="glass p-8 rounded-3xl border border-white/10">
+                <div class="flex gap-x-1 text-[#ff00aa] mb-5">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <div class="italic">"Kendi сделал мне позу, после которой я стал топ-1 в сервере. Все спрашивают, где я её взял."</div>
+                <div class="mt-6 flex items-center gap-x-3">
+                    <div class="w-9 h-9 rounded-full overflow-hidden"><img src="https://i.pravatar.cc/36?img=32" class="w-full h-full"></div>
+                    <div>
+                        <div class="font-semibold">@xXShadowLordXx</div>
+                        <div class="text-xs text-white/50">Топ-игрок • 142k followers</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass p-8 rounded-3xl border border-white/10">
+                <div class="flex gap-x-1 text-[#ff00aa] mb-5">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="italic">"Заказал 5 поз для своего ютуб-канала. Качество просто космос. Kendi — настоящий профессионал."</div>
+                <div class="mt-6 flex items-center gap-x-3">
+                    <div class="w-9 h-9 rounded-full overflow-hidden"><img src="https://i.pravatar.cc/36?img=15" class="w-full h-full"></div>
+                    <div>
+                        <div class="font-semibold">@RobloxVibesRU</div>
+                        <div class="text-xs text-white/50">YouTube 380k подписчиков</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass p-8 rounded-3xl border border-white/10">
+                <div class="flex gap-x-1 text-[#ff00aa] mb-5">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="italic">"Самая лучшая инвестиция в мой аватар. Позы Kendi реально выделяют тебя из толпы. Буду заказывать ещё."</div>
+                <div class="mt-6 flex items-center gap-x-3">
+                    <div class="w-9 h-9 rounded-full overflow-hidden"><img src="https://i.pravatar.cc/36?img=47" class="w-full h-full"></div>
+                    <div>
+                        <div class="font-semibold">@NeonQueen_</div>
+                        <div class="text-xs text-white/50">Стример • Twitch Partner</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="bg-gradient-to-b from-[#111114] to-black border-t border-white/10 py-20">
+        <div class="max-w-screen-2xl mx-auto px-8 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-6xl font-display font-black tracking-tighter">Готов выделиться?</h2>
+                <p class="mt-4 text-2xl text-white/70">Напиши мне в MAX — и мы создадим позу твоей мечты уже сегодня.</p>
+                
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://max.ru/u/f9LHodD0cOKmhHd8bTjf4eJVJnIK1fZBTDwurOyvPi2drvOkdO8V7b7GeK4" 
+                       target="_blank"
+                       class="roblox-btn px-14 py-4 text-xl font-semibold rounded-3xl inline-flex items-center justify-center gap-x-3">
+                        <span>Написать в MAX</span>
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
+                    
+                    <button onclick="document.getElementById('contact-modal').showModal()"
+                            class="px-10 py-4 text-xl font-semibold border border-white/40 hover:bg-white/5 rounded-3xl transition-all">
+                        Задать вопрос
+                    </button>
+                </div>
+                
+                <div class="mt-8 text-xs text-white/40">Обычно отвечаю в течение 10 минут</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-10 text-center text-xs text-white/40">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            © 2026 Kendi Poses. Все права защищены. Сделано с любовью к Roblox.
+        </div>
+    </footer>
+
+    <!-- Pose Modal -->
+    <dialog id="pose-modal" class="modal bg-zinc-900 border border-white/10 rounded-3xl p-0 w-full max-w-2xl mx-auto shadow-2xl">
+        <div class="relative">
+            <button onclick="document.getElementById('pose-modal').close()" class="absolute top-5 right-5 text-white/70 hover:text-white z-10">
+                <i class="fa-solid fa-times text-2xl"></i>
+            </button>
+            
+            <div id="modal-image" class="aspect-video w-full rounded-t-3xl overflow-hidden"></div>
+            
+            <div class="p-8">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div id="modal-category" class="text-xs tracking-[2px] font-medium text-[#ff00aa]"></div>
+                        <div id="modal-title" class="text-4xl font-black tracking-tighter"></div>
+                    </div>
+                    <div id="modal-price" class="text-right font-black text-5xl text-[#ff00aa]"></div>
+                </div>
+                
+                <div id="modal-description" class="mt-6 text-lg text-white/80"></div>
+                
+                <div class="mt-8 grid grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center gap-x-3 bg-white/5 p-4 rounded-2xl">
+                        <i class="fa-solid fa-clock text-[#ff00aa]"></i>
+                        <div>
+                            <div class="text-xs text-white/60">Срок выполнения</div>
+                            <div id="modal-time" class="font-semibold"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-3 bg-white/5 p-4 rounded-2xl">
+                        <i class="fa-solid fa-chart-line text-[#ff00aa]"></i>
+                        <div>
+                            <div class="text-xs text-white/60">Продаж</div>
+                            <div id="modal-sales" class="font-semibold"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex gap-3">
+                    <button onclick="contactForPose()" class="flex-1 roblox-btn py-4 text-lg font-semibold rounded-3xl">Заказать эту позу</button>
+                    <button onclick="document.getElementById('pose-modal').close()" class="flex-1 py-4 text-lg font-semibold border border-white/30 hover:bg-white/5 rounded-3xl">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Contact Modal -->
+    <dialog id="contact-modal" class="modal bg-zinc-900 border border-white/10 rounded-3xl p-0 w-full max-w-md mx-auto">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <div class="font-bold text-3xl">Связаться со мной</div>
+                    <div class="text-white/60">Напиши мне в MAX</div>
+                </div>
+                <button onclick="document.getElementById('contact-modal').close()" class="text-2xl text-white/60 hover:text-white">×</button>
+            </div>
+            
+            <a href="https://max.ru/u/f9LHodD0cOKmhHd8bTjf4eJVJnIK1fZBTDwurOyvPi2drvOkdO8V7b7GeK4" 
+               target="_blank"
+               class="block w-full py-5 roblox-btn rounded-3xl text-center text-xl font-semibold flex items-center justify-center gap-x-3 mb-4">
+                <i class="fa-brands fa-telegram text-2xl"></i>
+                <span>Открыть чат в MAX</span>
+            </a>
+            
+            <div class="text-center text-xs text-white/40">Я онлайн почти всегда. Отвечу максимально быстро.</div>
+        </div>
+    </dialog>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#ff00aa');
+        }
+        
+        // Filter poses
+        function filterPoses(category) {
+            const cards = document.querySelectorAll('#poses-grid .pose-card');
+            const buttons = document.querySelectorAll('.pose-filter');
+            
+            buttons.forEach(btn => btn.classList.remove('active', 'bg-[#ff00aa]', 'border-[#ff00aa]'));
+            
+            if (category === 'all') {
+                cards.forEach(card => card.style.display = 'block');
+                document.querySelector('[data-filter="all"]').classList.add('active', 'bg-[#ff00aa]', 'border-[#ff00aa]');
+            } else {
+                cards.forEach(card => {
+                    if (card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                const activeBtn = document.querySelector(`[data-filter="${category}"]`);
+                if (activeBtn) activeBtn.classList.add('active', 'bg-[#ff00aa]', 'border-[#ff00aa]');
+            }
+        }
+        
+        // Pose data
+        const poses = [
+            {
+                title: "Neon Reaper",
+                category: "EPIC",
+                price: "1 900 ₽",
+                description: "Эпичная динамичная поза с неоновым мечом и драматичным освещением. Идеально для бойцов и стримеров.",
+                time: "1-2 дня",
+                sales: "320+",
+                image: "https://picsum.photos/id/1005/1200/800"
+            },
+            {
+                title: "Void Walker",
+                category: "LEGENDARY",
+                price: "3 400 ₽",
+                description: "Мистическая поза, создающая ощущение, будто ты выходишь из другого измерения. Одна из самых популярных работ.",
+                time: "2-3 дня",
+                sales: "97+",
+                image: "https://picsum.photos/id/1018/1200/800"
+            },
+            {
+                title: "Cyber Samurai",
+                category: "PREMIUM",
+                price: "1 200 ₽",
+                description: "Идеальное сочетание японской эстетики и киберпанка. Меч в руке и неоновый эффект — чистый вайб.",
+                time: "1 день",
+                sales: "684+",
+                image: "https://picsum.photos/id/1033/1200/800"
+            },
+            {
+                title: "Shadow Assassin",
+                category: "EPIC",
+                price: "1 650 ₽",
+                description: "Скрытная, угрожающая поза. Отлично подходит для ролевых серверов и PvP-игроков.",
+                time: "1-2 дня",
+                sales: "241+",
+                image: "https://picsum.photos/id/106/1200/800"
+            },
+            {
+                title: "Celestial God",
+                category: "LEGENDARY",
+                price: "4 200 ₽",
+                description: "Божественная поза с парящими элементами и световыми эффектами. Максимальный уровень эпичности.",
+                time: "3 дня",
+                sales: "54+",
+                image: "https://picsum.photos/id/201/1200/800"
+            },
+            {
+                title: "Street King",
+                category: "PREMIUM",
+                price: "950 ₽",
+                description: "Уверенная, харизматичная поза для тех, кто хочет выглядеть как король улиц.",
+                time: "1 день",
+                sales: "1 129+",
+                image: "https://picsum.photos/id/160/1200/800"
+            }
+        ];
+        
+        let currentPoseIndex = 0;
+        
+        function showPoseModal(index) {
+            const pose = poses[index];
+            currentPoseIndex = index;
+            
+            document.getElementById('modal-image').innerHTML = `
+                <img src="${pose.image}" class="w-full h-full object-cover" alt="${pose.title}">
+            `;
+            
+            document.getElementById('modal-category').innerHTML = pose.category;
+            document.getElementById('modal-title').innerHTML = pose.title;
+            document.getElementById('modal-price').innerHTML = pose.price;
+            document.getElementById('modal-description').innerHTML = pose.description;
+            document.getElementById('modal-time').innerHTML = pose.time;
+            document.getElementById('modal-sales').innerHTML = pose.sales + " продаж";
+            
+            document.getElementById('pose-modal').showModal();
+        }
+        
+        function contactForPose() {
+            document.getElementById('pose-modal').close();
+            setTimeout(() => {
+                document.getElementById('contact-modal').showModal();
+            }, 300);
+        }
+        
+        function selectPlan(planName, price) {
+            const modal = document.getElementById('contact-modal');
+            modal.showModal();
+            
+            // Optional: prefill message hint
+            setTimeout(() => {
+                const msg = `Привет! Хочу заказать план "${planName}" (${price} ₽)`;
+                console.log('%c[INFO] Пользователь выбрал план: ' + msg, 'color:#666');
+            }, 500);
+        }
+        
+        // Keyboard support
+        function setupKeyboard() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Escape") {
+                    const modals = document.querySelectorAll('dialog[open]');
+                    if (modals.length > 0) {
+                        modals[modals.length - 1].close();
+                    }
+                }
+            });
+        }
+        
+        // Random floating effect on some elements
+        function addFloatingEffects() {
+            const cards = document.querySelectorAll('.pose-card');
+            cards.forEach((card, i) => {
+                if (i % 2 === 0) {
+                    card.style.animation = `float 4s ease-in-out ${i * 0.4}s infinite`;
+                }
+            });
+        }
+        
+        // Initialize everything
+        function init() {
+            initializeTailwind();
+            setupKeyboard();
+            addFloatingEffects();
+            
+            // Set initial filter button active
+            const allBtn = document.querySelector('[data-filter="all"]');
+            if (allBtn) {
+                allBtn.classList.add('active', 'bg-[#ff00aa]', 'border-[#ff00aa]');
+            }
+            
+            // Easter egg: Konami code for fun
+            let konami = [];
+            const konamiCode = [38,38,40,40,37,39,37,39,66,65];
+            
+            document.addEventListener('keydown', function(e) {
+                konami.push(e.keyCode);
+                if (konami.length > 10) konami.shift();
+                
+                if (JSON.stringify(konami) === JSON.stringify(konamiCode)) {
+                    document.body.style.transition = 'filter 0.6s';
+                    document.body.style.filter = 'hue-rotate(180deg)';
+                    setTimeout(() => {
+                        document.body.style.filter = '';
+                    }, 1200);
+                    konami = [];
+                }
+            });
+            
+            // Make sure modals close when clicking outside
+            document.querySelectorAll('dialog').forEach(dialog => {
+                dialog.addEventListener('click', function(e) {
+                    if (e.target === dialog) {
+                        dialog.close();
+                    }
+                });
+            });
+            
+            console.log('%c[KENDI] Сайт успешно загружен. Готов к работе!', 'color:#ff00aa');
+        }
+        
+        // Boot the site
+        window.onload = init;
+    </script>
+</body>
+</html>
