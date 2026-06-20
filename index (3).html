@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KENDI — Roblox Posing</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --red: #e60012;
+            --red-dark: #b3000e;
+            --white: #ffffff;
+            --black: #0f0f0f;
+            --gray: #f4f4f5;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        /* Background decoration */
+        .bg-deco {
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(230,0,18,0.12) 0%, rgba(255,255,255,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .bg-deco2 {
+            position: fixed;
+            bottom: -5%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(230,0,18,0.08) 0%, rgba(255,255,255,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(230,0,18,0.1);
+            z-index: 100;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--red);
+            text-transform: uppercase;
+        }
+        .logo span {
+            color: var(--black);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--red); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .hero-text h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            color: var(--black);
+            position: relative;
+            display: inline-block;
+        }
+        .hero-text h1 .red-accent {
+            color: var(--red);
+            position: relative;
+        }
+        .hero-text h1 .red-accent::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: rgba(230,0,18,0.15);
+            z-index: -1;
+            transform: skewX(-12deg);
+        }
+        .hero-text p {
+            margin-top: 1.5rem;
+            font-size: 1.25rem;
+            color: #444;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+        .hero-btns {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 1rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(230,0,18,0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(230,0,18,0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--red);
+            border-color: var(--red);
+        }
+        .btn-outline:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-card {
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 1/1;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            transform: rotate(3deg);
+            transition: transform 0.5s ease;
+            position: relative;
+            background: var(--gray);
+        }
+        .hero-card:hover { transform: rotate(0deg) scale(1.02); }
+        .hero-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-badge {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            font-weight: 800;
+            color: var(--red);
+            transform: rotate(-6deg);
+            border: 2px solid rgba(230,0,18,0.1);
+        }
+
+        /* Gallery */
+        .gallery-section {
+            background: var(--gray);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+        .section-title span { color: var(--red); }
+        .section-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-item.tall { grid-row: span 2; }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(230,0,18,0.8), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .overlay-text {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Order CTA */
+        .order-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .order-card {
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            border-radius: 32px;
+            padding: 4rem 3rem;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .order-card h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+        .order-card p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--white);
+            color: var(--red);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .order-info h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .order-info ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .order-info li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .order-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(230,0,18,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--red);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* YouTube */
+        .youtube-section {
+            background: var(--black);
+            color: var(--white);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        .yt-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .yt-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(230,0,18,0.4);
+        }
+        .yt-icon svg { width: 36px; height: 36px; fill: var(--white); }
+        .youtube-section h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+        .youtube-section p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+        }
+        .btn-yt {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--red);
+            color: var(--white);
+            padding: 1.1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(230,0,18,0.3);
+        }
+        .btn-yt:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(230,0,18,0.5);
+            background: #ff1a2e;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(230,0,18,0.1);
+        }
+        footer .logo { font-size: 1.5rem; margin-bottom: 1rem; display: inline-block; }
+        footer p { color: #888; font-size: 0.95rem; }
+        footer a { color: var(--red); text-decoration: none; font-weight: 600; }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 2rem;
+        }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 16px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .lightbox.active img { transform: scale(1); }
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .anim {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 3.5rem; }
+            .hero-text p { max-width: 100%; }
+            .hero-btns { justify-content: center; }
+            .hero-card { max-width: 320px; }
+            .hero-badge { display: none; }
+            .order-section { grid-template-columns: 1fr; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        }
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .section-title { font-size: 2rem; }
+            .order-card { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-deco"></div>
+    <div class="bg-deco2"></div>
+
+    <header>
+        <nav>
+            <div class="logo">KEN<span>DI</span></div>
+            <ul class="nav-links">
+                <li><a href="#works">Работы</a></li>
+                <li><a href="#order">Заказать</a></li>
+                <li><a href="#youtube">YouTube</a></li>
+                <li><a href="https://max.ru/u/f9LHodD0cOI6ADhewf0A12qnQ5pIoyv1BbtZDbiHd_SertKkoLAiBpiWVGY" target="_blank">Связь</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text anim">
+            <h1><span class="red-accent">Kendi</span><br>Posing</h1>
+            <p>Создаю стильные позинги для твоего персонажа Roblox. Крутые ракурсы, эффектная обработка и уникальные стили для твоего профиля, аватарки или видео.</p>
+            <div class="hero-btns">
+                <a href="#works" class="btn btn-primary">Смотреть работы</a>
+                <a href="https://max.ru/u/f9LHodD0cOI6ADhewf0A12qnQ5pIoyv1BbtZDbiHd_SertKkoLAiBpiWVGY" target="_blank" class="btn btn-outline">Заказать позинг</a>
+            </div>
+        </div>
+        <div class="hero-visual anim delay-2">
+            <div class="hero-card">
+                <img src="uploads/позинг%20для%20видео.png" alt="Kendi Roblox Posing">
+            </div>
+            <div class="hero-badge">Roblox Artist</div>
+        </div>
+    </section>
+
+    <section class="gallery-section" id="works">
+        <div class="section-header anim">
+            <div>
+                <div class="section-title">Мои <span>позинги</span></div>
+                <div class="section-subtitle">Примеры работ для разных стилей и настроений</div>
+            </div>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item anim" onclick="openLightbox(this)">
+                <img src="uploads/111111111.png" alt="Posing 1">
+                <div class="gallery-overlay"><div class="overlay-text">Нажмите для просмотра</div></div>
+            </div>
+            <div class="gallery-item anim delay-1" onclick="openLightbox(this)">
+                <img src="uploads/12111111111111.png" alt="Posing 2">
+                <div class="gallery-overlay"><div class="overlay-text">Нажмите для просмотра</div></div>
+            </div>
+            <div class="gallery-item tall anim delay-2" onclick="openLightbox(this)">
+                <img src="uploads/позинг%20для%20видео.png" alt="Posing Video">
+                <div class="gallery-overlay"><div class="overlay-text">Нажмите для просмотра</div></div>
+            </div>
+            <div class="gallery-item anim delay-3" onclick="openLightbox(this)">
+                <img src="uploads/213213213123123.png" alt="Posing 3">
+                <div class="gallery-overlay"><div class="overlay-text">Нажмите для просмотра</div></div>
+            </div>
+            <div class="gallery-item anim delay-1" onclick="openLightbox(this)">
+                <img src="uploads/лопух.png" alt="Posing 4">
+                <div class="gallery-overlay"><div class="overlay-text">Нажмите для просмотра</div></div>
+            </div>
+            <div class="gallery-item anim delay-2" onclick="openLightbox(this)">
+                <img src="uploads/214141414141414141414.png" alt="Posing 5">
+                <div class="gallery-overlay"><div class="overlay-text">Нажмите для просмотра</div></div>
+            </div>
+            <div class="gallery-item anim delay-3" onclick="openLightbox(this)">
+                <img src="uploads/wmremove-transformed.jpeg" alt="Posing 6">
+                <div class="gallery-overlay"><div class="overlay-text">Нажмите для просмотра</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="order-section" id="order">
+        <div class="order-card anim">
+            <h2>Закажи позинг</h2>
+            <p>Хочешь такой же крутой позинг для своего Roblox-персонажа? Пиши — обсудим детали, стиль и твои пожелания.</p>
+            <a href="https://max.ru/u/f9LHodD0cOI6ADhewf0A12qnQ5pIoyv1BbtZDbiHd_SertKkoLAiBpiWVGY" target="_blank" class="btn-white">
+                <span>💬</span> Написать в MAX
+            </a>
+        </div>
+        <div class="order-info anim delay-2">
+            <h3>Почему я?</h3>
+            <ul>
+                <li><div class="order-icon">⚡</div> Быстрое выполнение</li>
+                <li><div class="order-icon">🎨</div> Уникальный стиль</li>
+                <li><div class="order-icon">🎮</div> Понимание Roblox-эстетики</li>
+                <li><div class="order-icon">🔥</div> Крутые эффекты и фоны</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="youtube-section" id="youtube">
+        <div class="yt-content anim">
+            <div class="yt-icon">
+                <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.81zM9.55 15.5V8.5l6.27 3.5-6.27 3.5z"/></svg>
+            </div>
+            <h2>YouTube Канал</h2>
+            <p>Смотри мои видео, туториалы и крутые моменты из Roblox. Подписывайся, чтобы не пропускать новое!</p>
+            <a href="https://www.youtube.com/@ilyasud888" target="_blank" class="btn-yt">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.81zM9.55 15.5V8.5l6.27 3.5-6.27 3.5z"/></svg>
+                @ilyasud888
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">KEN<span>DI</span></div>
+        <p>Roblox Posing by Kendi • <a href="https://max.ru/u/f9LHodD0cOI6ADhewf0A12qnQ5pIoyv1BbtZDbiHd_SertKkoLAiBpiWVGY" target="_blank">Заказать</a> • <a href="https://www.youtube.com/@ilyasud888" target="_blank">YouTube</a></p>
+    </footer>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.anim').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
